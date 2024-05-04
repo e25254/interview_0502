@@ -1,0 +1,9 @@
+@import "./globals.scss";
+.home_page {
+  width: 44.9375rem;
+  margin: 0 auto;
+  padding-top: 1.125rem;
+  .stock_name {
+    @extend %h5_bold;
+  }
+}
