@@ -6,7 +6,7 @@ import LineChart from "@/components/LineChart";
 export default function Home() {
   return (
     <Stack className="home_page">
-      <Paper>
+      <Paper className="stock_name">
         <Typography variant="h5">三商壽（2867）</Typography>
       </Paper>
       <Paper>

@@ -32,7 +32,7 @@ const theme = createTheme({
           padding: "1rem 1.1875rem",
           boxShadow: "none",
           border: "1px solid #dfdfdf",
-          backgroundColor: "#FAFAFA",
+          backgroundColor: "#fffff",
         },
       },
     },

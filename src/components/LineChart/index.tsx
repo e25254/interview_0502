@@ -2,7 +2,17 @@ import React from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 
+import "./index.scss";
+
 export default function LineChart() {
+  const formatLastLabel = (
+    isLast: boolean,
+    defaultValue: string | number,
+    formatString: string
+  ) => {
+    if (isLast) return formatString;
+    return defaultValue;
+  };
   const options = {
     chart: {
       zoomType: "xy",
@@ -42,41 +52,64 @@ export default function LineChart() {
         gridLineWidth: 2,
         tickmarkPlacement: "on",
         tickInterval: 24 * 3600 * 1000 * 30 * 12,
+        tickWidth: 0,
+        lineColor: "#e4e4e4",
+        labels: {
+          style: {
+            color: "#545454",
+          },
+        },
       },
     ],
     yAxis: [
       {
         // Primary yAxis
         labels: {
-          format: "{value}°C",
+          formatter: (
+            formatterContextObject: Highcharts.AxisLabelsFormatterContextObject
+          ) =>
+            formatLastLabel(
+              formatterContextObject.isLast,
+              formatterContextObject.value,
+              "％"
+            ),
           style: {
-            color: "red",
+            color: "#545454",
           },
         },
         title: {
-          text: "%",
-          style: {
-            color: "red",
-          },
-          align: "high",
-          rotation: 0,
+          text: "",
         },
         opposite: true,
+        alignTicks: false,
+        gridLineWidth: 0,
+        minorGridLineWidth: 0,
+        minorTickInterval: "auto",
+        minorTicksPerMajor: 1,
+        minorTickLength: 5,
+        minorTickWidth: 1,
+        lineWidth: 0,
+        minorTickColor: "#E4E4E4",
       },
       {
         // Secondary yAxis
         title: {
-          text: "千元",
-          style: {
-            color: "red",
-          },
+          text: "",
         },
         labels: {
-          format: "{value} mm",
+          formatter: (
+            formatterContextObject: Highcharts.AxisLabelsFormatterContextObject
+          ) =>
+            formatLastLabel(
+              formatterContextObject.isLast,
+              formatterContextObject.value,
+              "千元"
+            ),
           style: {
-            color: "red",
+            color: "#545454",
           },
         },
+        alignTicks: false,
       },
     ],
     tooltip: {
@@ -159,6 +192,10 @@ export default function LineChart() {
           [Date.UTC(2023, 9), 21.5],
           [Date.UTC(2023, 10), 20.5],
           [Date.UTC(2023, 11), 20.5],
+          [Date.UTC(2024, 0), 21.5],
+          [Date.UTC(2024, 1), 29.5],
+          [Date.UTC(2024, 2), 19.5],
+          [Date.UTC(2024, 3), 23.5],
         ],
         tooltip: {
           valueSuffix: " mm",
@@ -169,7 +206,7 @@ export default function LineChart() {
         type: "spline",
         color: "#CB4C4C",
         data: [
-          [Date.UTC(2019, 0), 21.5],
+          [Date.UTC(2019, 0), 2.5],
           [Date.UTC(2019, 1), 29.5],
           [Date.UTC(2019, 2), 19.5],
           [Date.UTC(2019, 3), 23.5],
@@ -192,7 +229,7 @@ export default function LineChart() {
           [Date.UTC(2020, 8), 24.5],
           [Date.UTC(2020, 9), 21.5],
           [Date.UTC(2020, 10), 20.5],
-          [Date.UTC(2020, 11), 20.5],
+          [Date.UTC(2020, 11), 90.5],
           [Date.UTC(2021, 0), 21.5],
           [Date.UTC(2021, 1), 29.5],
           [Date.UTC(2021, 2), 19.5],
@@ -229,6 +266,10 @@ export default function LineChart() {
           [Date.UTC(2023, 9), 21.5],
           [Date.UTC(2023, 10), 20.5],
           [Date.UTC(2023, 11), 20.5],
+          [Date.UTC(2024, 0), 21.5],
+          [Date.UTC(2024, 1), 29.5],
+          [Date.UTC(2024, 2), 19.5],
+          [Date.UTC(2024, 3), 23.5],
         ],
         tooltip: {
           valueSuffix: "°C",
@@ -261,7 +302,7 @@ export default function LineChart() {
     ],
   };
   return (
-    <div>
+    <div className="line_chart_div">
       <HighchartsReact highcharts={Highcharts} options={options} />
     </div>
   );
