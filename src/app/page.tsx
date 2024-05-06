@@ -1,12 +1,16 @@
 "use client";
-import { Checkbox, Paper, Stack, Typography } from "@mui/material";
+import { Paper, Stack, Typography } from "@mui/material";
 import "./page.scss";
+import LineChart from "@/components/LineChart";
 
 export default function Home() {
   return (
     <Stack className="home_page">
       <Paper>
-        <h5 className="stock_name">三商壽（ 2867 ）</h5>
+        <Typography variant="h5">三商壽（2867）</Typography>
+      </Paper>
+      <Paper>
+        <LineChart />
       </Paper>
     </Stack>
   );
