@@ -14,9 +14,6 @@ export default function LineChart() {
     return defaultValue;
   };
   const options = {
-    chart: {
-      // zoomType: "xy",
-    },
     title: {
       text: "",
       align: "left",
@@ -41,12 +38,6 @@ export default function LineChart() {
     },
     xAxis: [
       {
-        // categories: [
-        //   Date.UTC(2019),
-        //   Date.UTC(2020),
-        //   Date.UTC(2021),
-        //   Date.UTC(2022),
-        // ],
         type: "datetime",
         dateTimeLabelFormats: {
           day: "%m/%d",
