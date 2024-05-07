@@ -22,3 +22,23 @@ export const newHttpInstance = (
   );
   return instance;
 };
+
+export const reqGetStockMonthRevenue = async (
+  stockCode: string,
+  startDate: string
+) => {
+  try {
+    const parametersArray = [
+      `stock_code=${stockCode}`,
+      `start_date=${startDate}`,
+    ];
+    const instance = newHttpInstance(
+      "GET",
+      `/api/getStockMonthRevenue?${parametersArray.join("&")}`
+    );
+    const res = await instance.request({});
+    return res.data;
+  } catch (error: Error | unknown) {
+    console.error(error);
+  }
+};

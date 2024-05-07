@@ -1,10 +1,9 @@
 import { Stack, Typography } from "@mui/material";
 import React from "react";
 import "./index.scss";
+import { tableData } from "@/app/utils";
 type CommonTableProps = {
-  data: {
-    [key: string]: string | number;
-  }[];
+  data: tableData;
   isAllBold?: boolean;
 };
 export default function CommonTable({
@@ -19,8 +18,8 @@ export default function CommonTable({
         <tbody>
           {Object.keys(data[0]).map((dataKey, dataKeyIndex) => (
             <tr key={dataKey}>
-              {data.map((item) => (
-                <td key={`${dataKeyIndex}_${dataKeyIndex}`}>
+              {data.map((item, itemIndex) => (
+                <td key={`${dataKey}_${itemIndex}_${item[dataKey]}`}>
                   <Typography
                     variant={
                       judgeIsBoldText(dataKeyIndex)

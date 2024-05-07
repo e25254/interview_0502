@@ -4,6 +4,7 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "@/theme";
 import Header from "@/components/Header";
+import { ReactQueryProvider } from "@/components/ReactQueryProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,12 +19,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <AppRouterCacheProvider>
-          <ThemeProvider theme={theme}>
-            <Header />
-            <main>{children}</main>
-          </ThemeProvider>
-        </AppRouterCacheProvider>
+        <ReactQueryProvider>
+          <AppRouterCacheProvider>
+            <ThemeProvider theme={theme}>
+              <Header />
+              <main>{children}</main>
+            </ThemeProvider>
+          </AppRouterCacheProvider>
+        </ReactQueryProvider>
       </body>
     </html>
   );

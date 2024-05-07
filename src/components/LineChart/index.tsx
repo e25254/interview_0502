@@ -3,8 +3,13 @@ import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 
 import "./index.scss";
+import { lineChartData } from "@/app/utils";
 
-export default function LineChart() {
+type LineChartProps = {
+  stockData: lineChartData;
+};
+
+export default function LineChart({ stockData }: LineChartProps) {
   const formatLastLabel = (
     isLast: boolean,
     defaultValue: string | number,
@@ -139,72 +144,7 @@ export default function LineChart() {
         borderColor: "#e8af00",
         borderRadius: 0,
         yAxis: 1,
-        data: [
-          [Date.UTC(2019, 0), 21.5],
-          [Date.UTC(2019, 1), 29.5],
-          [Date.UTC(2019, 2), 19.5],
-          [Date.UTC(2019, 3), 23.5],
-          [Date.UTC(2019, 4), 17.5],
-          [Date.UTC(2019, 5), 14.5],
-          [Date.UTC(2019, 6), 16.5],
-          [Date.UTC(2019, 7), 29.5],
-          [Date.UTC(2019, 8), 24.5],
-          [Date.UTC(2019, 9), 21.5],
-          [Date.UTC(2019, 10), 20.5],
-          [Date.UTC(2019, 11), 20.5],
-          [Date.UTC(2020, 0), 21.5],
-          [Date.UTC(2020, 1), 29.5],
-          [Date.UTC(2020, 2), 19.5],
-          [Date.UTC(2020, 3), 23.5],
-          [Date.UTC(2020, 4), 17.5],
-          [Date.UTC(2020, 5), 14.5],
-          [Date.UTC(2020, 6), 16.5],
-          [Date.UTC(2020, 7), 29.5],
-          [Date.UTC(2020, 8), 24.5],
-          [Date.UTC(2020, 9), 21.5],
-          [Date.UTC(2020, 10), 20.5],
-          [Date.UTC(2020, 11), 20.5],
-          [Date.UTC(2021, 0), 21.5],
-          [Date.UTC(2021, 1), 29.5],
-          [Date.UTC(2021, 2), 19.5],
-          [Date.UTC(2021, 3), 23.5],
-          [Date.UTC(2021, 4), 17.5],
-          [Date.UTC(2021, 5), 14.5],
-          [Date.UTC(2021, 6), 16.5],
-          [Date.UTC(2021, 7), 29.5],
-          [Date.UTC(2021, 8), 24.5],
-          [Date.UTC(2021, 9), 21.5],
-          [Date.UTC(2021, 10), 20.5],
-          [Date.UTC(2021, 11), 20.5],
-          [Date.UTC(2022, 0), 21.5],
-          [Date.UTC(2022, 1), 29.5],
-          [Date.UTC(2022, 2), 19.5],
-          [Date.UTC(2022, 3), 23.5],
-          [Date.UTC(2022, 4), 17.5],
-          [Date.UTC(2022, 5), 14.5],
-          [Date.UTC(2022, 6), 16.5],
-          [Date.UTC(2022, 7), 29.5],
-          [Date.UTC(2022, 8), 24.5],
-          [Date.UTC(2022, 9), 21.5],
-          [Date.UTC(2022, 10), 20.5],
-          [Date.UTC(2022, 11), 20.5],
-          [Date.UTC(2023, 0), 21.5],
-          [Date.UTC(2023, 1), 29.5],
-          [Date.UTC(2023, 2), 19.5],
-          [Date.UTC(2023, 3), 23.5],
-          [Date.UTC(2023, 4), 17.5],
-          [Date.UTC(2023, 5), 14.5],
-          [Date.UTC(2023, 6), 16.5],
-          [Date.UTC(2023, 7), 29.5],
-          [Date.UTC(2023, 8), 24.5],
-          [Date.UTC(2023, 9), 21.5],
-          [Date.UTC(2023, 10), 20.5],
-          [Date.UTC(2023, 11), 20.5],
-          [Date.UTC(2024, 0), 21.5],
-          [Date.UTC(2024, 1), 29.5],
-          [Date.UTC(2024, 2), 19.5],
-          [Date.UTC(2024, 3), 23.5],
-        ],
+        data: stockData?.month_revenue || [],
         tooltip: {
           valueSuffix: " mm",
         },
@@ -291,9 +231,9 @@ export default function LineChart() {
             halo: {
               size: 5,
               attributes: {
-                stroke: "#CB4C4C", // 边框颜色
-                "stroke-width": 4, // 边框宽度
-                fill: "none", // 填充颜色设为'none'表示不填充
+                stroke: "#CB4C4C",
+                "stroke-width": 4,
+                fill: "none",
                 opacity: "0.5",
               },
             },
