@@ -1,0 +1,20 @@
+.common_table_div {
+  table {
+    width: fit-content;
+    border-collapse: collapse;
+    thead {
+      text-align: left;
+    }
+    tr {
+      &:nth-child(2n-1) {
+        background-color: #f6f8fa;
+      }
+    }
+    td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+      padding: 0.8rem 1.125rem 0.7625rem 1.3125rem;
+    }
+  }
+}

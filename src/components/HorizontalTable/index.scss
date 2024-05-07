@@ -1,0 +1,17 @@
+div.horizontal_table_div {
+  flex-direction: row;
+  gap: 0.3125rem;
+  & > div {
+    width: fit-content;
+  }
+  .table_static {
+    flex-shrink: 0;
+  }
+  .table_scroll {
+    overflow: auto;
+    td {
+      text-align: right;
+      border-left: none;
+    }
+  }
+}

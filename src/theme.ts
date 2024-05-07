@@ -8,6 +8,26 @@ const pingFang = localFont({
   src: "./app/_font/PingFang Medium.ttf",
 });
 
+declare module "@mui/material/styles" {
+  interface TypographyVariants {
+    table_bold?: React.CSSProperties;
+    table_common?: React.CSSProperties;
+  }
+
+  // allow configuration using `createTheme`
+  interface TypographyVariantsOptions {
+    table_bold?: React.CSSProperties;
+    table_common?: React.CSSProperties;
+  }
+}
+// Update the Typography's variant prop options
+declare module "@mui/material/Typography" {
+  interface TypographyPropsVariantOverrides {
+    table_bold: true;
+    table_common: true;
+  }
+}
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -28,6 +48,16 @@ const theme = createTheme({
       fontWeight: "800",
       fontSize: "0.8125rem",
       lineHeight: "1.1375rem",
+    },
+    table_bold: {
+      fontWeight: "600",
+      fontSize: "0.8126rem",
+      lineHeight: "1.4625rem",
+    },
+    table_common: {
+      fontWeight: "400",
+      fontSize: "0.8126rem",
+      lineHeight: "1.4625rem",
     },
   },
   components: {
