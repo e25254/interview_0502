@@ -24,6 +24,11 @@ const theme = createTheme({
       lineHeight: "1.125rem",
       fontWeight: "600",
     },
+    h6: {
+      fontWeight: "800",
+      fontSize: "0.8125rem",
+      lineHeight: "1.1375rem",
+    },
   },
   components: {
     MuiPaper: {
