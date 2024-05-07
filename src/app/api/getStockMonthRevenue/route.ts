@@ -1,16 +1,16 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { newHttpInstance } from "../utils";
-export const GET = async (
-  stockCode: string = "2330",
-  startDate: string = "2021-01-01"
-) => {
+export const GET = async (req: NextRequest) => {
   try {
+    const { searchParams } = new URL(req.url);
+    const stock_code = searchParams.get("stock_code") || "2330";
+    const start_date = searchParams.get("start_date") || "2024-01-01";
     const baseUrl = "https://api.finmindtrade.com/api/v4/data";
     const parametersArray = [
       `token=${process.env.FINMIND_API_TOKEN}`,
       `dataset=TaiwanStockMonthRevenue`,
-      `data_id=${stockCode}`,
-      `start_date=${startDate}`,
+      `data_id=${stock_code}`,
+      `start_date=${start_date}`,
     ];
     const instance = newHttpInstance(
       "GET",
