@@ -33,6 +33,13 @@ export default function Home() {
         </Stack>
         <HorizontalTable />
       </Paper>
+      <Stack className="data_from_div">
+        <Typography variant="table_common">
+          {
+            "圖表單位：千元，數據來自公開資訊觀測站\n網頁圖表歡迎轉貼引用，請註明出處為財報狗"
+          }
+        </Typography>
+      </Stack>
     </Stack>
   );
 }
