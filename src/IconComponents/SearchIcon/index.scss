@@ -1,0 +1,4 @@
+@import "/src/app/globals.scss";
+.search_icon_div {
+  @extend %svg_icon_div;
+}

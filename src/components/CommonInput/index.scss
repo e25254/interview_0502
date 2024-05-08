@@ -1,0 +1,26 @@
+.common_input_div {
+  position: relative;
+  --input_padding: 0.625rem;
+  input {
+    width: 25rem;
+    padding: var(--input_padding);
+    padding-right: calc(var(--input_padding) + 1.25rem);
+    border-radius: 3px;
+    border: 1px solid #dfdfdf;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.3125rem;
+    &:focus-visible {
+      outline: none;
+    }
+  }
+  .search_icon_div {
+    position: absolute;
+    width: 1.25rem;
+    height: 1.25rem;
+    padding: 0px;
+    top: 50%;
+    right: var(--input_padding);
+    transform: translateY(-50%);
+  }
+}
