@@ -6,6 +6,7 @@ import StatusTag from "@/components/StatusTag";
 import HorizontalTable from "@/components/HorizontalTable";
 import { useQuery } from "@tanstack/react-query";
 import { reqGetStockMonthRevenue } from "./api/utils";
+import LoadingProcess from "@/components/LoadingProcess";
 
 export default function Home() {
   const { data: stockMonthRevenueData, isLoading: stockMonthRevenueIsLoading } =
@@ -22,7 +23,7 @@ export default function Home() {
       </Paper>
 
       {stockMonthRevenueIsLoading ? (
-        <></>
+        <LoadingProcess />
       ) : (
         <>
           {/* Stock Chart */}
