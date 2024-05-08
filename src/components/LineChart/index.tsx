@@ -122,6 +122,28 @@ export default function LineChart({ stockData }: LineChartProps) {
     ],
     tooltip: {
       shared: true,
+      backgroundColor: "#000000",
+      style: {
+        color: "#ffffff",
+        opacity: "0.8",
+        whiteSpace: "pre-line",
+      },
+      formatter: function (this: Highcharts.TooltipFormatterContextObject) {
+        const date = new Date(this.x as number);
+        const dateString = `${date.getFullYear()}${date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1}`;
+        const pointsArray = this
+          .points as Highcharts.TooltipFormatterContextObject[];
+
+        const tooltipStringArray = pointsArray.map((point) => {
+          const legendName = point.series.name;
+          const value = point.y;
+          return `${legendName} = ${value}`;
+        });
+        tooltipStringArray.unshift(dateString);
+        return `<span style={{ background: "white" }}>
+            ${tooltipStringArray.join("<br/>")}
+          </span>`;
+      },
     },
     legend: {
       align: "left",
@@ -150,9 +172,6 @@ export default function LineChart({ stockData }: LineChartProps) {
         borderRadius: 0,
         yAxis: 1,
         data: stockData?.month_revenue || [],
-        tooltip: {
-          valueSuffix: " mm",
-        },
       },
       {
         name: "單月營收年增率 (%)",
@@ -160,9 +179,6 @@ export default function LineChart({ stockData }: LineChartProps) {
         color: "#CB4C4C",
         data: stockData?.monthly_revenue_growth_rate || [],
         legendSymbol: "rectangle",
-        tooltip: {
-          valueSuffix: "°C",
-        },
         linecap: "square",
         states: {
           hover: {
