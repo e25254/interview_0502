@@ -11,7 +11,7 @@ export default function Home() {
   const { data: stockMonthRevenueData, isLoading: stockMonthRevenueIsLoading } =
     useQuery({
       queryKey: ["getStockMonthRevenue"],
-      queryFn: () => reqGetStockMonthRevenue("2330", "2019-02-01"),
+      queryFn: () => reqGetStockMonthRevenue("2330", "2018-02-01"),
       gcTime: 0,
     });
   return (

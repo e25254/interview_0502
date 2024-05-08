@@ -18,19 +18,21 @@ export default function CommonTable({
         <tbody>
           {Object.keys(data[0]).map((dataKey, dataKeyIndex) => (
             <tr key={dataKey}>
-              {data.map((item, itemIndex) => (
-                <td key={`${dataKey}_${itemIndex}_${item[dataKey]}`}>
-                  <Typography
-                    variant={
-                      judgeIsBoldText(dataKeyIndex)
-                        ? "table_bold"
-                        : "table_common"
-                    }
-                  >
-                    {item[dataKey]}
-                  </Typography>
-                </td>
-              ))}
+              {data.map((item, itemIndex) => {
+                return (
+                  <td key={`${dataKey}_${itemIndex}_${item[dataKey]}`}>
+                    <Typography
+                      variant={
+                        judgeIsBoldText(dataKeyIndex)
+                          ? "table_bold"
+                          : "table_common"
+                      }
+                    >
+                      {item[dataKey]}
+                    </Typography>
+                  </td>
+                );
+              })}
             </tr>
           ))}
         </tbody>

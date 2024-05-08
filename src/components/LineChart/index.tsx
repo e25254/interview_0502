@@ -10,12 +10,17 @@ type LineChartProps = {
 };
 
 export default function LineChart({ stockData }: LineChartProps) {
+  const maxWidthLabel = (() => {
+    let temp = stockData.month_revenue.map((revenue) => revenue[1]);
+    return Math.max(...temp);
+  })();
   const formatLastLabel = (
     isLast: boolean,
     defaultValue: string | number,
     formatString: string
   ) => {
     if (isLast) return formatString;
+    if (formatString === "千元") return defaultValue.toLocaleString();
     return defaultValue;
   };
   const options = {
@@ -120,9 +125,9 @@ export default function LineChart({ stockData }: LineChartProps) {
     },
     legend: {
       align: "left",
-      x: 50,
+      x: (maxWidthLabel.toString().length / 2) * 13 * 1.5, // 根據左邊label字串長度去計算ｘ偏移
       verticalAlign: "top",
-      y: 5,
+      y: 8,
       floating: true,
       backgroundColor: "rgba(255,255,255,0.25)",
       symbolRadius: 0,
@@ -153,72 +158,7 @@ export default function LineChart({ stockData }: LineChartProps) {
         name: "單月營收年增率 (%)",
         type: "line",
         color: "#CB4C4C",
-        data: [
-          [Date.UTC(2019, 0), 2.5],
-          [Date.UTC(2019, 1), 29.5],
-          [Date.UTC(2019, 2), 19.5],
-          [Date.UTC(2019, 3), 23.5],
-          [Date.UTC(2019, 4), 17.5],
-          [Date.UTC(2019, 5), 14.5],
-          [Date.UTC(2019, 6), 16.5],
-          [Date.UTC(2019, 7), 29.5],
-          [Date.UTC(2019, 8), 24.5],
-          [Date.UTC(2019, 9), 21.5],
-          [Date.UTC(2019, 10), 20.5],
-          [Date.UTC(2019, 11), 20.5],
-          [Date.UTC(2020, 0), 21.5],
-          [Date.UTC(2020, 1), 29.5],
-          [Date.UTC(2020, 2), 19.5],
-          [Date.UTC(2020, 3), 23.5],
-          [Date.UTC(2020, 4), 17.5],
-          [Date.UTC(2020, 5), 14.5],
-          [Date.UTC(2020, 6), 16.5],
-          [Date.UTC(2020, 7), 29.5],
-          [Date.UTC(2020, 8), 24.5],
-          [Date.UTC(2020, 9), 21.5],
-          [Date.UTC(2020, 10), 20.5],
-          [Date.UTC(2020, 11), 90.5],
-          [Date.UTC(2021, 0), 21.5],
-          [Date.UTC(2021, 1), 29.5],
-          [Date.UTC(2021, 2), 19.5],
-          [Date.UTC(2021, 3), 23.5],
-          [Date.UTC(2021, 4), 17.5],
-          [Date.UTC(2021, 5), 14.5],
-          [Date.UTC(2021, 6), 16.5],
-          [Date.UTC(2021, 7), 29.5],
-          [Date.UTC(2021, 8), 24.5],
-          [Date.UTC(2021, 9), 21.5],
-          [Date.UTC(2021, 10), 20.5],
-          [Date.UTC(2021, 11), 20.5],
-          [Date.UTC(2022, 0), 21.5],
-          [Date.UTC(2022, 1), 29.5],
-          [Date.UTC(2022, 2), 19.5],
-          [Date.UTC(2022, 3), 23.5],
-          [Date.UTC(2022, 4), 17.5],
-          [Date.UTC(2022, 5), 14.5],
-          [Date.UTC(2022, 6), 16.5],
-          [Date.UTC(2022, 7), 29.5],
-          [Date.UTC(2022, 8), 24.5],
-          [Date.UTC(2022, 9), 21.5],
-          [Date.UTC(2022, 10), 20.5],
-          [Date.UTC(2022, 11), 20.5],
-          [Date.UTC(2023, 0), 21.5],
-          [Date.UTC(2023, 1), 29.5],
-          [Date.UTC(2023, 2), 19.5],
-          [Date.UTC(2023, 3), 23.5],
-          [Date.UTC(2023, 4), 17.5],
-          [Date.UTC(2023, 5), 14.5],
-          [Date.UTC(2023, 6), 16.5],
-          [Date.UTC(2023, 7), 29.5],
-          [Date.UTC(2023, 8), 24.5],
-          [Date.UTC(2023, 9), 21.5],
-          [Date.UTC(2023, 10), 20.5],
-          [Date.UTC(2023, 11), 20.5],
-          [Date.UTC(2024, 0), 21.5],
-          [Date.UTC(2024, 1), 29.5],
-          [Date.UTC(2024, 2), 19.5],
-          [Date.UTC(2024, 3), 23.5],
-        ],
+        data: stockData?.monthly_revenue_growth_rate || [],
         legendSymbol: "rectangle",
         tooltip: {
           valueSuffix: "°C",
