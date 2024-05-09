@@ -23,6 +23,7 @@ export const GET = async (req: NextRequest) => {
     const { searchParams } = new URL(req.url);
     const search_code = searchParams.get("search_code") || "";
 
+    if (search_code.length === 0) return NextResponse.json([]);
     const baseUrl = "https://statementdog.com/api/v1/autocomplete";
     const parametersArray: string[] = [`q=${search_code}`];
     const instance = newHttpInstance(

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import CommonInput, { CommonInputProps } from "../CommonInput";
 import { Collapse, Paper, Stack, Typography } from "@mui/material";
 import "./index.scss";
@@ -23,6 +23,9 @@ export default function SearchBox({
   selectItem,
 }: SearchBoxProps) {
   const [inputValue, setInputValue] = useState<string>("");
+  const [isSuggestedCollapseOpen, setIsSuggestedCollapseOpen] =
+    useState<boolean>(false);
+
   const handleHighlightText = (
     originalText: string,
     searchText: string
@@ -52,9 +55,18 @@ export default function SearchBox({
       <CommonInput
         inputOnChange={inputOnChange}
         inputPlaceholder={inputPlaceholder}
+        inputOnFocus={() =>
+          setTimeout(() => setIsSuggestedCollapseOpen(true), 200)
+        }
+        inputOnBlur={() =>
+          setTimeout(() => setIsSuggestedCollapseOpen(false), 500)
+        }
         {...{ inputValue, setInputValue }}
       />
-      <Collapse className="result_collapse" in={searchResult.length > 0}>
+      <Collapse
+        className="result_collapse"
+        in={searchResult.length > 0 && isSuggestedCollapseOpen}
+      >
         <Paper className="result_item_group">
           <Stack className="result_item result_title">
             <Typography variant="body1">查詢個股</Typography>

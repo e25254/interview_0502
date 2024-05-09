@@ -8,6 +8,8 @@ export type CommonInputProps = {
   inputOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   inputValue: string;
   setInputValue: React.Dispatch<React.SetStateAction<string>>;
+  inputOnFocus?: () => void;
+  inputOnBlur?: () => void;
 };
 
 export default function CommonInput({
@@ -15,6 +17,8 @@ export default function CommonInput({
   inputPlaceholder = "",
   inputValue,
   setInputValue,
+  inputOnFocus = () => {},
+  inputOnBlur = () => {},
 }: CommonInputProps) {
   return (
     <Stack className="common_input_div">
@@ -25,6 +29,8 @@ export default function CommonInput({
           setInputValue(event.target.value);
           inputOnChange(event);
         }}
+        onFocus={inputOnFocus}
+        onBlur={inputOnBlur}
       />
       <SearchIcon />
     </Stack>

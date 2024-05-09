@@ -12,12 +12,12 @@ import useStockSelect from "@/hook/useStockSelect";
 import { useEffect } from "react";
 
 export default function Home() {
-  const { stockCode } = useStockSelect();
+  const { stockCode, start_time } = useStockSelect();
   const { data: stockMonthRevenueData, isLoading: stockMonthRevenueIsLoading } =
     useQuery({
-      queryKey: ["getStockMonthRevenue", stockCode],
-      queryFn: ({ queryKey: [_, queryCode] }) =>
-        reqGetStockMonthRevenue(`${queryCode}`, "2018-02-01"),
+      queryKey: ["getStockMonthRevenue", stockCode, start_time],
+      queryFn: ({ queryKey: [_, queryCode, startTime] }) =>
+        reqGetStockMonthRevenue(`${queryCode}`, `${startTime}`),
       gcTime: 0,
     });
 

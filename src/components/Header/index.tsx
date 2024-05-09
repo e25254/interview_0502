@@ -15,10 +15,8 @@ export default function Header() {
 
   const { data: suggestedStock } = useQuery({
     queryKey: ["getSuggestedStock", debounceValue],
-    queryFn: ({ queryKey: [_, searchString] }) => {
-      if (!searchString) return false;
-      return reqGetSuggestedStock(searchString);
-    },
+    queryFn: ({ queryKey: [_, searchString] }) =>
+      reqGetSuggestedStock(searchString),
     gcTime: 0,
   });
 
