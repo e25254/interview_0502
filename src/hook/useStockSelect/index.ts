@@ -9,7 +9,7 @@ type useStockSelectProps = {
 
 const useStockSelect = create<useStockSelectProps>()(
   devtools((set) => ({
-    stockCode: 2330,
+    stockCode: 2867,
     start_time: "2018-02-01",
     changeStockSelect: (newState) => {
       set(() => ({
