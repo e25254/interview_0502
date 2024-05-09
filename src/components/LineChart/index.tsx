@@ -137,7 +137,7 @@ export default function LineChart({ stockData }: LineChartProps) {
         const tooltipStringArray = pointsArray.map((point) => {
           const legendName = point.series.name;
           const value = point.y;
-          return `${legendName} = ${value}`;
+          return `${legendName} = ${value?.toLocaleString()}`;
         });
         tooltipStringArray.unshift(dateString);
         return `<span style={{ background: "white" }}>
