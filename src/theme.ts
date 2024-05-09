@@ -49,6 +49,10 @@ const theme = createTheme({
       fontSize: "0.8125rem",
       lineHeight: "1.1375rem",
     },
+    body1: {
+      fontSize: "0.9375rem",
+      lineHeight: "164%",
+    },
     table_bold: {
       fontWeight: "600",
       fontSize: "0.8126rem",

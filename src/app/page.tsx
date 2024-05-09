@@ -5,27 +5,39 @@ import LineChart from "@/components/LineChart";
 import StatusTag from "@/components/StatusTag";
 import HorizontalTable from "@/components/HorizontalTable";
 import { useQuery } from "@tanstack/react-query";
-import { reqGetStockMonthRevenue } from "./api/utils";
+
 import LoadingProcess from "@/components/LoadingProcess";
+import { reqGetStockMonthRevenue, reqGetSuggestedStock } from "@/api_v1";
+import useStockSelect from "@/hook/useStockSelect";
+import { useEffect } from "react";
 
 export default function Home() {
+  const { stockCode } = useStockSelect();
   const { data: stockMonthRevenueData, isLoading: stockMonthRevenueIsLoading } =
     useQuery({
-      queryKey: ["getStockMonthRevenue"],
-      queryFn: () => reqGetStockMonthRevenue("2330", "2018-02-01"),
+      queryKey: ["getStockMonthRevenue", stockCode],
+      queryFn: ({ queryKey: [_, queryCode] }) =>
+        reqGetStockMonthRevenue(`${queryCode}`, "2018-02-01"),
       gcTime: 0,
     });
+
+  const { data: stockInformationData, isLoading: stockInformationIsLoading } =
+    useQuery({
+      queryKey: ["getStockInformation", stockCode],
+      queryFn: ({ queryKey: [_, queryCode] }) =>
+        reqGetSuggestedStock(`${queryCode}`),
+    });
+
   return (
     <Stack className="home_page">
-      {/* Stock information */}
-      <Paper className="stock_name">
-        <Typography variant="h5">三商壽（2867）</Typography>
-      </Paper>
-
-      {stockMonthRevenueIsLoading ? (
+      {stockMonthRevenueIsLoading || stockInformationIsLoading ? (
         <LoadingProcess />
       ) : (
         <>
+          {/* Stock information */}
+          <Paper className="stock_name">
+            <Typography variant="h5">{`${stockInformationData[0].stock_name}（${stockInformationData[0].stock_code}）`}</Typography>
+          </Paper>
           {/* Stock Chart */}
           <Paper className="stock_chart">
             <Stack className="tag_group">

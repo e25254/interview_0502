@@ -1,18 +1,30 @@
 import { Stack } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./index.scss";
 import SearchIcon from "@/IconComponents/SearchIcon";
-import useDebounce from "@/hook/useDebounce";
 
-type CommonInputProps = {
+export type CommonInputProps = {
+  inputPlaceholder?: string;
   inputOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  inputValue: string;
+  setInputValue: React.Dispatch<React.SetStateAction<string>>;
 };
-export default function CommonInput({ inputOnChange }: CommonInputProps) {
+
+export default function CommonInput({
+  inputOnChange,
+  inputPlaceholder = "",
+  inputValue,
+  setInputValue,
+}: CommonInputProps) {
   return (
     <Stack className="common_input_div">
       <input
-        placeholder="輸入台／美股代號，查看公司價值"
-        onChange={inputOnChange}
+        placeholder={inputPlaceholder}
+        value={inputValue}
+        onChange={(event) => {
+          setInputValue(event.target.value);
+          inputOnChange(event);
+        }}
       />
       <SearchIcon />
     </Stack>
