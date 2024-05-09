@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Interview_0502
 
-## Getting Started
+## Link
 
-First, run the development server:
+**[Deploy on GCP](https://interview0505.jerryjie.site/)**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## How to start in local
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. change to `v18.17.0` node version
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+   ```shell
+   nvm use
+   # or
+   nvm use v18.17.0
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+2. install packages
 
-## Learn More
+   ```shell
+   npm install
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+3. add `.env` file in project root
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   ```env
+   FINMIND_API_TOKEN=your finmind token
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+4. run dev script
 
-## Deploy on Vercel
+   ```shell
+   npm run dev
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Skill
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- 使用 **[NextJS](https://nextjs.org/)** + **[Typescript](https://www.typescriptlang.org/)** + **[sass](https://sass-lang.com/)** 的 `App route` 進行開發
+- 使用 [HighCharts](https://www.highcharts.com/)產生圖表
+- **[MUI](https://mui.com/)** 作為 UI library，並設定好主題
+- 使用 **[axios](https://github.com/axios/axios)** 發出 api 請求
+- 使用 **[react query v5](https://tanstack.com/query/v5/docs/framework/react/overview)** 進行 api 狀態管理
+- 使用 **[zustand](https://github.com/pmndrs/zustand)** 來進行 react 狀態管理
+
+## 佈署策略
+
+- 架設 **[Nginx](https://github.com/pmndrs/zustand)** 作為請求導向
+- 使用 **[Certbot](https://certbot.eff.org/)** 申請 SSL 憑證
+- 使用 **[pm2](https://pm2.keymetrics.io/)** 作為 `NextJS` 啟動的服務
+- 將進到 `Nginx` 的請求導向到由 `pm2` 起的服務
