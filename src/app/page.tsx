@@ -38,27 +38,38 @@ export default function Home() {
           <Paper className="stock_name">
             <Typography variant="h5">{`${stockInformationData[0].stock_name}（${stockInformationData[0].stock_code}）`}</Typography>
           </Paper>
-          {/* Stock Chart */}
-          <Paper className="stock_chart">
-            <Stack className="tag_group">
-              <StatusTag>
-                <Typography variant="h6">每月營收</Typography>
-              </StatusTag>
-              <StatusTag>
-                <Typography variant="h6">近 5 年</Typography>
-              </StatusTag>
+
+          {stockMonthRevenueData.lineChartData.month_revenue.length > 0 &&
+          stockMonthRevenueData.lineChartData.monthly_revenue_growth_rate
+            .length > 0 ? (
+            <>
+              {/* Stock Chart */}
+              <Paper className="stock_chart">
+                <Stack className="tag_group">
+                  <StatusTag>
+                    <Typography variant="h6">每月營收</Typography>
+                  </StatusTag>
+                  <StatusTag>
+                    <Typography variant="h6">近 5 年</Typography>
+                  </StatusTag>
+                </Stack>
+                <LineChart stockData={stockMonthRevenueData?.lineChartData} />
+              </Paper>
+              {/* Stock Table */}
+              <Paper className="stock_table">
+                <Stack className="table_title_div">
+                  <StatusTag>
+                    <Typography variant="h6">詳細數據</Typography>
+                  </StatusTag>
+                </Stack>
+                <HorizontalTable stockData={stockMonthRevenueData?.tableData} />
+              </Paper>
+            </>
+          ) : (
+            <Stack className="no_data">
+              <Typography variant="h5">無近五年數據</Typography>
             </Stack>
-            <LineChart stockData={stockMonthRevenueData?.lineChartData} />
-          </Paper>
-          {/* Stock Table */}
-          <Paper className="stock_table">
-            <Stack className="table_title_div">
-              <StatusTag>
-                <Typography variant="h6">詳細數據</Typography>
-              </StatusTag>
-            </Stack>
-            <HorizontalTable stockData={stockMonthRevenueData?.tableData} />
-          </Paper>
+          )}
         </>
       )}
 
