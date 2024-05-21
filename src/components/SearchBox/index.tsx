@@ -1,42 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CommonInput, { CommonInputProps } from "../CommonInput";
 import { Collapse, Paper, Stack, Typography } from "@mui/material";
 import "./index.scss";
 import { formatSuggestedStock } from "@/app/api/getSuggestedStock/route";
+import { useQuery } from "@tanstack/react-query";
+import useDebounce from "@/hook/useDebounce";
+import { reqGetSuggestedStock } from "@/api_v1";
 
-type SearchBoxProps = Pick<
-  CommonInputProps,
-  "inputOnChange" | "inputPlaceholder"
-> & {
-  searchResult: [];
-  searchText: string;
-  clearFunction: () => void;
+type SearchBoxProps = Pick<CommonInputProps, "inputPlaceholder"> & {
   selectItem: (value: number) => void;
 };
 
 export default function SearchBox({
-  inputOnChange,
   inputPlaceholder,
-  searchResult,
-  searchText,
-  clearFunction,
+
   selectItem,
 }: SearchBoxProps) {
   const [inputValue, setInputValue] = useState<string>("");
+  const [searchResult, setSearchResult] = useState<[]>([]);
   const [isSuggestedCollapseOpen, setIsSuggestedCollapseOpen] =
     useState<boolean>(false);
 
+  const { debounceValue, debounceOnChange, clearDebounceValue } = useDebounce();
+
+  const { data: suggestedStock } = useQuery({
+    queryKey: ["getSuggestedStock", debounceValue],
+    queryFn: ({ queryKey: [_, searchString] }) =>
+      reqGetSuggestedStock(searchString),
+    gcTime: 0,
+  });
+
   const handleHighlightText = (
     originalText: string,
-    searchText: string
+    debounceValue: string
   ): string => {
-    if (!searchText) return "";
+    if (!debounceValue) return "";
     let tempText = originalText;
-    let startIndex = originalText.indexOf(searchText);
+    let startIndex = originalText.indexOf(debounceValue);
     let highlightedText = "";
 
     while (startIndex !== -1) {
-      let endIndex = startIndex + searchText.length;
+      let endIndex = startIndex + debounceValue.length;
       if (startIndex > 0) {
         highlightedText += `${tempText.substring(0, startIndex)}<span>${tempText.substring(startIndex, endIndex)}</span>`;
       } else {
@@ -44,16 +48,26 @@ export default function SearchBox({
       }
 
       tempText = tempText.substring(endIndex);
-      startIndex = tempText.indexOf(searchText);
+      startIndex = tempText.indexOf(debounceValue);
     }
     highlightedText += tempText;
     return `${highlightedText}`;
   };
 
+  const clearSearchResult = () => {
+    clearDebounceValue();
+    setSearchResult([]);
+  };
+
+  useEffect(() => {
+    if (!suggestedStock) return;
+    setSearchResult(suggestedStock);
+  }, [suggestedStock]);
+
   return (
     <Stack className="search_box_div">
       <CommonInput
-        inputOnChange={inputOnChange}
+        inputOnChange={debounceOnChange}
         inputPlaceholder={inputPlaceholder}
         inputOnFocus={() =>
           setTimeout(() => setIsSuggestedCollapseOpen(true), 200)
@@ -77,7 +91,7 @@ export default function SearchBox({
               key={resultItem.stock_code}
               onClick={() => {
                 selectItem(parseInt(resultItem.stock_code));
-                clearFunction();
+                clearSearchResult();
                 setInputValue("");
               }}
             >
@@ -86,7 +100,7 @@ export default function SearchBox({
                 dangerouslySetInnerHTML={{
                   __html: handleHighlightText(
                     resultItem.display_name,
-                    searchText
+                    debounceValue
                   ),
                 }}
               ></Typography>
